@@ -1,0 +1,91 @@
+<html>
+<head>
+	<title>Contacts</title>
+	<script type="text/javascript" src="js/code.js"></script>
+    <link href="css/styles.css" rel="stylesheet">	
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>p5 background</title>
+	<script type="text/javascript" src="js/p5.js"></script>
+	<script type="text/javascript" src="js/sketch.js"></script>
+
+	<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function() 
+	{
+		readCookie();
+	}, false);
+</script>
+	
+</head>
+<body>
+
+
+	<img id="pfp" src="" alt="" />
+<h1 id="nameFormat"> <span id="Name"> </h1>
+
+	<span id="userName"></span><br />
+	<button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
+
+	<input type="text" id="searchText" placeholder="Search Friend" onclick="searchColor(1);"/>
+	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+	
+	<div class="scroll" id="hider"><p id="colorList"></p></div>
+
+
+	<div class="profileInfo" id="hiderOpo">
+
+		<br /><br /><br /><br /><br /><br /><br /><br />
+		<p id="grabInfo2"></p>
+
+		<br /><br />
+
+		<b><h1 id="txtsearchformat3">PHOTO</h1>
+		<p id="txtsearchformat4">PhotoImageLink</p>
+
+		<br /><br />
+
+		<b><h1 id="txtsearchformat3">EMAIL</h1>
+		<p id="txtsearchformat4">kanyeloveskanye@gmail.com</p>
+
+		<br /><br />
+
+		<h1 id="txtsearchformat3">NUMBER</h1>
+		<p id="txtsearchformat4">(407)-555-888</p>
+
+		<br /><br />
+
+		<h1 id="txtsearchformat3">ADDRESS</h1>
+		<p id="txtsearchformat4">Wherever Kanye is</p>
+
+		<br /><br />
+
+		<h1 id="txtsearchformat3">RELATIONSHIP</h1>
+		<p id="txtsearchformat4">Dating</p>
+
+		<br /><br />
+
+		<h1 id="txtsearchformat3">NOTE</h1>
+		<p id="txtsearchformat4">Kanye loves himself</p>
+
+
+		<button class="buttons5" onclick="backToSearch();"> < BACK</button>
+	
+	</div>
+
+	<p id="grabInfo"></p>
+
+
+	<!--button type="button" id="searchColorButton" class="buttons" onclick="searchColor();" >SEARCH</button><br />
+	<span id="colorSearchResult"></span>
+	<p id="colorList">
+	</p><br /><br /><br /><br /-->
+
+	<!--input type="text" id="colorText" placeholder="Add Friend">
+	<button type="button" id="addColorButton" class="buttons" onclick="addColor();">ADD</button><br />
+	<span id="colorAddResult"></span-->
+
+</body>
+</html>
