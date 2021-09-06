@@ -1,7 +1,6 @@
 <?php
 	$inData = getRequestInfo();
-    $FirstName = $inData["FirstName"];
-    $LastName = $inData["LastName"];
+    $Name = $inData["Name"];
 	$ContactPhoto = $inData["ContactPhoto"];
 	$UserID = $inData["UserID"];
 	$Email = $inData["Email"];
@@ -16,10 +15,10 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("INSERT into Contacts (UserID, FirstName, LastName, ContactPhoto, 
+		$stmt = $conn->prepare("INSERT into Contacts (UserID, Name, ContactPhoto, 
 								 Email, PhoneNumber, Address, Relationship, Notes)
-								VALUES(?,?,?,?,?,?,?,?,?);");
-		$stmt->bind_param("issssssss", $UserID, $FirstName, $LastName, $ContactPhoto, $Email, 
+								VALUES(?,?,?,?,?,?,?,?);");
+		$stmt->bind_param("isssssss", $UserID, $Name, $ContactPhoto, $Email, 
 						  $PhoneNumber, $Address, $Relationship, $Notes);
 		$stmt->execute();
 		$stmt->close();

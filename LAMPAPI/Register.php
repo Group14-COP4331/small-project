@@ -2,8 +2,7 @@
 	$inData = getRequestInfo();
 	$DateCreated = date('Y-m-d H:i:s');
 	$DateLastLoggedIn = date('Y-m-d H:i:s');
-    $FirstName = $inData["FirstName"];
-    $LastName = $inData["LastName"];
+    $Name = $inData["Name"];
     $Login = $inData["Login"];
     $Password = $inData["Password"];
 	$Contactphoto = $inData["Contactphoto"];
@@ -15,10 +14,10 @@
 	else
 	{
 		$stmt = $conn->prepare("INSERT into Users (DateCreated, DateLastLoggedIn, 
-								FirstName, LastName, Login, Password, ContactPhoto)
-								VALUES(?,?,?,?,?,?,?);");
-		$stmt->bind_param("sssssss", $DateCreated, $DateLastLoggedIn,
-							$FirstName, $LastName, $Login, $Password, $Contactphoto);
+								Name, Login, Password, ContactPhoto)
+								VALUES(?,?,?,?,?,?);");
+		$stmt->bind_param("ssssss", $DateCreated, $DateLastLoggedIn,
+							$Name, $Login, $Password, $Contactphoto);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
