@@ -4,8 +4,7 @@
 $inData = getRequestInfo();
 
 $id = 0;
-$firstName = "";
-$lastName = "";
+$Name = "";
 $photo = "";
 $email = "";
 $number = "";
@@ -21,14 +20,14 @@ if( $conn->connect_error )
 }
 else
 {
-    $stmt = $conn->prepare("SELECT ID,firstName,lastName, ContactPhoto, Email, PhoneNumber, Address, Relationship, Notes FROM Contacts WHERE Firstname=? AND LastName=? AND UserID=?");
-    $stmt->bind_param("ssi", $inData["FirstName"], $inData["LastName"], $inData["UserID"]);
+    $stmt = $conn->prepare("SELECT ID, Name, ContactPhoto, Email, PhoneNumber, Address, Relationship, Notes FROM Contacts WHERE Name=? AND UserID=?");
+    $stmt->bind_param("si", $inData["Name"], $inData["UserID"]);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if( $row = $result->fetch_assoc()  )
     {
-        returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'], $row['ContactPhoto'], $row['Email'], $row['PhoneNumber'], $row['Address'], $row['Relationship'], $row['Notes']);
+        returnWithInfo( $row['Name'], $row['ID'], $row['ContactPhoto'], $row['Email'], $row['PhoneNumber'], $row['Address'], $row['Relationship'], $row['Notes']);
     }
     else
     {
@@ -56,9 +55,9 @@ function returnWithError( $err )
     sendResultInfoAsJson( $retValue );
 }
 
-function returnWithInfo( $firstName, $lastName, $id, $photo, $email, $number, $address, $relationship, $notes)
+function returnWithInfo($Name, $id, $photo, $email, $number, $address, $relationship, $notes)
 {
-    $retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '", "email":"'.$email.'", "number":"'.$number.'", "address":"'.$address.'", "relationship":"'.$relationship.'", "note":"'.$notes.'", "photo":"' . $photo . '","error":""}';
+    $retValue = '{"id":' . $id . ',"Name":"' . $Name . '", "email":"'.$email.'", "number":"'.$number.'", "address":"'.$address.'", "relationship":"'.$relationship.'", "note":"'.$notes.'", "photo":"' . $photo . '","error":""}';
     sendResultInfoAsJson( $retValue );
 }
 
