@@ -20,8 +20,8 @@ if( $conn->connect_error )
 }
 else
 {
-    $stmt = $conn->prepare("SELECT ID, Name, ContactPhoto, Email, PhoneNumber, Address, Relationship, Notes FROM Contacts WHERE Name=? AND UserID=?");
-    $stmt->bind_param("si", $inData["Name"], $inData["UserID"]);
+    $stmt = $conn->prepare("SELECT ID, Name, ContactPhoto, Email, PhoneNumber, Address, Relationship, Notes FROM Contacts WHERE ID=?");
+    $stmt->bind_param("i", $inData["ID"]);
     $stmt->execute();
     $result = $stmt->get_result();
 
