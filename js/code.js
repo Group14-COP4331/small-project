@@ -226,6 +226,7 @@ function contactInfo (i)
 
 	var contactname = splits[0];
 	var contactphoto = splits[1];
+	var ID = splits[2];
 
 	document.getElementById('hider').style.display='none';
 	document.getElementById('hiderOpo').style.display='block';
@@ -234,7 +235,7 @@ function contactInfo (i)
 	document.getElementById("grabInfo2").innerHTML = "<p id='txtsearchformat5'>" + contactname + "</p>\r\n";
 	document.getElementById('pfp3').style.display='block';
 
-	var tmp = {UserID:userId,Name:contactname};
+	var tmp = {ID:ID};
 	var jsonPayload = JSON.stringify( tmp );
 
 	var url = urlBase + '/ContactInfo.' + extension;
@@ -332,7 +333,7 @@ function search()
 
 				for(var i = 0; i < json.results.length || i > 10; i++)
 				{
-					list += "<div onclick='contactInfo(\"" + json.results[i].Name  + "," + json.results[i].ContactPhoto + "\");' class='buttonThing'><img id='pfp2' src = '" + 
+					list += "<div onclick='contactInfo(\"" + json.results[i].Name  + "," + json.results[i].ContactPhoto + "," + json.results[i].ID  + "\");' class='buttonThing'><img id='pfp2' src = '" + 
 					json.results[i].ContactPhoto + "'/>" + " <p id='txtsearchformat'>" + json.results[i].Name  + "</p></div>\r\n";
 				}
 
