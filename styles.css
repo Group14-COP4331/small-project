@@ -87,12 +87,48 @@ div.buttonThing {
     text-align: center;
 }
 
-#txtsearchformat4 {
+#photo {
     font-size: 20px;
     text-align: center;
     margin: -100px 0px;
     color: #ffffff;
 }
+
+#email {
+    font-size: 20px;
+    text-align: center;
+    margin: -100px 0px;
+    color: #ffffff;
+}
+
+#number {
+    font-size: 20px;
+    text-align: center;
+    margin: -100px 0px;
+    color: #ffffff;
+}
+
+#address {
+    font-size: 20px;
+    text-align: center;
+    margin: -100px 0px;
+    color: #ffffff;
+}
+
+#relationship {
+    font-size: 20px;
+    text-align: center;
+    margin: -100px 0px;
+    color: #ffffff;
+}
+
+#note {
+    font-size: 20px;
+    text-align: center;
+    margin: -100px 0px;
+    color: #ffffff;
+}
+
 
 #txtsearchformat5 {
     font-size: 60px;
@@ -127,7 +163,7 @@ div.buttonThing {
     display: none;
 }
 
-#colorList {
+#List {
     font-size: 25px;
     margin: 30px 10px;
 }
