@@ -224,45 +224,25 @@ function contactInfo (i)
 {
 	var splits = i.split(",");
 
-	var contactname = splits[0];
+	var Name = splits[0];
 	var contactphoto = splits[1];
+
+
+
+
+
+	
+
+
+
+
 
 	document.getElementById('hider').style.display='none';
 	document.getElementById('hiderOpo').style.display='block';
 	document.getElementById('searchText').style.display='none';
-	document.getElementById("grabInfo").innerHTML = "<img id='pfp3' src = '" + contactphoto + "'/>" + " <p id='txtsearchformat2'>" + contactname + "</p>\r\n";
-	document.getElementById("grabInfo2").innerHTML = "<p id='txtsearchformat5'>" + contactname + "</p>\r\n";
+	document.getElementById("grabInfo").innerHTML = "<img id='pfp3' src = '" + contactphoto + "'/>" + " <p id='txtsearchformat2'>" + Name + "</p>\r\n";
+	document.getElementById("grabInfo2").innerHTML = "<p id='txtsearchformat5'>" + Name + "</p>\r\n";
 	document.getElementById('pfp3').style.display='block';
-
-	var tmp = {UserID:userId,Name:contactname};
-	var jsonPayload = JSON.stringify( tmp );
-
-	var url = urlBase + '/ContactInfo.' + extension;
-	
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				var json = JSON.parse( xhr.responseText );
-
-				document.getElementById("photo").innerHTML = json.photo;
-				document.getElementById("email").innerHTML = json.email;
-				document.getElementById("number").innerHTML = json.number;
-				document.getElementById("address").innerHTML = json.address;
-				document.getElementById("relationship").innerHTML = json.relationship;
-				document.getElementById("note").innerHTML = json.note;
-				
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{}
 	
 }
 
@@ -311,6 +291,8 @@ function addColor()
 function search()
 {
 	var srch = document.getElementById("searchText").value;
+	//var srch = "k";
+	
 	var list = "";
 
 	var tmp = {Search:srch,UserID:userId};
@@ -327,6 +309,9 @@ function search()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
+				/*var json = [];
+				json = xhr.responseText;*/
+
 				var json = JSON.parse( xhr.responseText );
 				
 
