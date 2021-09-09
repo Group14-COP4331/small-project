@@ -224,25 +224,46 @@ function contactInfo (i)
 {
 	var splits = i.split(",");
 
-	var Name = splits[0];
+	var contactname = splits[0];
 	var contactphoto = splits[1];
-
-
-
-
-
-	
-
-
-
-
+	var ID = splits[2];
 
 	document.getElementById('hider').style.display='none';
 	document.getElementById('hiderOpo').style.display='block';
 	document.getElementById('searchText').style.display='none';
-	document.getElementById("grabInfo").innerHTML = "<img id='pfp3' src = '" + contactphoto + "'/>" + " <p id='txtsearchformat2'>" + Name + "</p>\r\n";
-	document.getElementById("grabInfo2").innerHTML = "<p id='txtsearchformat5'>" + Name + "</p>\r\n";
+	document.getElementById("grabInfo").innerHTML = "<img id='pfp3' src = '" + contactphoto + "'/>" + " <p id='txtsearchformat2'>" + contactname + "</p>\r\n";
+	document.getElementById("grabInfo2").innerHTML = "<p id='txtsearchformat5'>" + contactname + "</p>\r\n";
 	document.getElementById('pfp3').style.display='block';
+
+	var tmp = {ID:ID};
+	var jsonPayload = JSON.stringify( tmp );
+
+	var url = urlBase + '/ContactInfo.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				var json = JSON.parse( xhr.responseText );
+
+				document.getElementById("photo").innerHTML = json.photo;
+				document.getElementById("email").innerHTML = json.email;
+				document.getElementById("number").innerHTML = json.number;
+				document.getElementById("address").innerHTML = json.address;
+				document.getElementById("relationship").innerHTML = json.relationship;
+				document.getElementById("note").innerHTML = json.note;
+				
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{}
 	
 }
 
@@ -291,8 +312,6 @@ function addColor()
 function search()
 {
 	var srch = document.getElementById("searchText").value;
-	//var srch = "k";
-	
 	var list = "";
 
 	var tmp = {Search:srch,UserID:userId};
@@ -309,15 +328,12 @@ function search()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				/*var json = [];
-				json = xhr.responseText;*/
-
 				var json = JSON.parse( xhr.responseText );
 				
 
 				for(var i = 0; i < json.results.length || i > 10; i++)
 				{
-					list += "<div onclick='contactInfo(\"" + json.results[i].Name  + "," + json.results[i].ContactPhoto + "\");' class='buttonThing'><img id='pfp2' src = '" + 
+					list += "<div onclick='contactInfo(\"" + json.results[i].Name  + "," + json.results[i].ContactPhoto + "," + json.results[i].ID  + "\");' class='buttonThing'><img id='pfp2' src = '" + 
 					json.results[i].ContactPhoto + "'/>" + " <p id='txtsearchformat'>" + json.results[i].Name  + "</p></div>\r\n";
 				}
 
