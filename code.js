@@ -224,15 +224,45 @@ function contactInfo (i)
 {
 	var splits = i.split(",");
 
-	var Name = splits[0];
+	var contactname = splits[0];
 	var contactphoto = splits[1];
 
 	document.getElementById('hider').style.display='none';
 	document.getElementById('hiderOpo').style.display='block';
 	document.getElementById('searchText').style.display='none';
-	document.getElementById("grabInfo").innerHTML = "<img id='pfp3' src = '" + contactphoto + "'/>" + " <p id='txtsearchformat2'>" + Name + "</p>\r\n";
-	document.getElementById("grabInfo2").innerHTML = "<p id='txtsearchformat5'>" + Name + "</p>\r\n";
+	document.getElementById("grabInfo").innerHTML = "<img id='pfp3' src = '" + contactphoto + "'/>" + " <p id='txtsearchformat2'>" + contactname + "</p>\r\n";
+	document.getElementById("grabInfo2").innerHTML = "<p id='txtsearchformat5'>" + contactname + "</p>\r\n";
 	document.getElementById('pfp3').style.display='block';
+
+	var tmp = {UserID:userId,Name:contactname};
+	var jsonPayload = JSON.stringify( tmp );
+
+	var url = urlBase + '/ContactInfo.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				var json = JSON.parse( xhr.responseText );
+
+				document.getElementById("photo").innerHTML = json.photo;
+				document.getElementById("email").innerHTML = json.email;
+				document.getElementById("number").innerHTML = json.number;
+				document.getElementById("address").innerHTML = json.address;
+				document.getElementById("relationship").innerHTML = json.relationship;
+				document.getElementById("note").innerHTML = json.note;
+				
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{}
 	
 }
 
@@ -280,12 +310,10 @@ function addColor()
 
 function search()
 {
-	/*var srch = document.getElementById("searchText").value;
-	document.getElementById("colorSearchResult").innerHTML = "";
-	
-	var colorList = "";
+	var srch = document.getElementById("searchText").value;
+	var list = "";
 
-	var tmp = {search:srch,userId:userId};
+	var tmp = {Search:srch,UserID:userId};
 	var jsonPayload = JSON.stringify( tmp );
 
 	var url = urlBase + '/Search.' + extension;
@@ -299,29 +327,26 @@ function search()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
-				var jsonObject = JSON.parse( xhr.responseText );
+				var json = JSON.parse( xhr.responseText );
 				
-				for( var i=0; i<jsonObject.results.length; i++ )
+
+				for(var i = 0; i < json.results.length || i > 10; i++)
 				{
-					colorList += jsonObject.results[i];
-					if( i < jsonObject.results.length - 1 )
-					{
-						colorList += "<br />\r\n";
-					}
+					list += "<div onclick='contactInfo(\"" + json.results[i].Name  + "," + json.results[i].ContactPhoto + "\");' class='buttonThing'><img id='pfp2' src = '" + 
+					json.results[i].ContactPhoto + "'/>" + " <p id='txtsearchformat'>" + json.results[i].Name  + "</p></div>\r\n";
 				}
+
+				document.getElementById('hider').style.display='block';
+				document.getElementById("List").innerHTML = list;
 				
-				document.getElementsByTagName("p")[0].innerHTML = colorList;
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
-	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
-	}*/
+	{}
 	
-	var json = [
+	/*var json = [
 		{"Name": "Kanye West", "contactphoto": "https://thumbor.forbes.com/thumbor/fit-in/416x416/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5ed00f17d4a99d0006d2e738%2F0x0.jpg%3Fbackground%3D000000%26cropX1%3D154%26cropX2%3D4820%26cropY1%3D651%26cropY2%3D5314"},
 		{"Name": "Kanye Zest", "contactphoto": "https://i0.wp.com/thisbugslife.com/wp-content/uploads/2021/03/depositphotos_19638723-stock-photo-fresh-orange-fruit-with-leaf.jpg?ssl=1"},
 		{"Name": "Kanye Rest", "contactphoto": "https://static.independent.co.uk/s3fs-public/thumbnails/image/2016/11/22/08/kanye.jpg?width=982&height=726&auto=webp&quality=75"},
@@ -332,15 +357,15 @@ function search()
 		{"Name": "Bat Man", "contactphoto": "https://th.bing.com/th/id/OIP.cWQUPZFYSb7_-G8x-79qowHaHa?w=183&h=184&c=7&r=0&o=5&pid=1.7"},
 		{"Name": "KanyeLoves Kanye", "contactphoto": "https://th.bing.com/th/id/OIP.XAsMofaeyNsT1tkUxARb0QHaHa?w=177&h=180&c=7&r=0&o=5&pid=1.7"}
 	
-	];
+	];*/
 
-	var colorlist = "";
+	/*var list = "";
 
 	for(var i = 0; i < json.length; i++)
 	{
-		colorlist += "<div onclick='contactInfo(\"" + json[i].Name  + "," + json[i].contactphoto + "\");' class='buttonThing'><img id='pfp2' src = '" + 
+		list += "<div onclick='contactInfo(\"" + json[i].Name  + "," + json[i].contactphoto + "\");' class='buttonThing'><img id='pfp2' src = '" + 
 		json[i].contactphoto + "'/>" + " <p id='txtsearchformat'>" + json[i].Name  + "</p></div>\r\n";
-	}
+	}*/
 
 	/*
 iteration 1
@@ -353,6 +378,5 @@ iteration 2
 <img id='pfp2' src = 'image2'/> <p id='txtsearchformat'> Kanye Zest </p>
 </div>
 	*/
-	document.getElementById('hider').style.display='block';
-	document.getElementById("List").innerHTML = colorlist;
+	//document.getElementById("List").innerHTML = "asdffffffffffffffffffffffffffffffffffffffffffffffff";
 }
