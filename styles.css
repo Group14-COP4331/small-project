@@ -1,5 +1,5 @@
 
-html, body {margin: 0; height: 100%; overflow-y: scroll; overflow-x:hidden;}
+html, body {margin: 0; height: 100%; overflow: hidden}
 
 html * {
     font-family: 'Arial Narrow', sans-serif !important;
@@ -87,12 +87,48 @@ div.buttonThing {
     text-align: center;
 }
 
-#txtsearchformat4 {
+#photo {
     font-size: 20px;
     text-align: center;
     margin: -100px 0px;
     color: #ffffff;
 }
+
+#email {
+    font-size: 20px;
+    text-align: center;
+    margin: -100px 0px;
+    color: #ffffff;
+}
+
+#number {
+    font-size: 20px;
+    text-align: center;
+    margin: -100px 0px;
+    color: #ffffff;
+}
+
+#address {
+    font-size: 20px;
+    text-align: center;
+    margin: -100px 0px;
+    color: #ffffff;
+}
+
+#relationship {
+    font-size: 20px;
+    text-align: center;
+    margin: -100px 0px;
+    color: #ffffff;
+}
+
+#note {
+    font-size: 20px;
+    text-align: center;
+    margin: -100px 0px;
+    color: #ffffff;
+}
+
 
 #txtsearchformat5 {
     font-size: 60px;
@@ -127,7 +163,7 @@ div.buttonThing {
     display: none;
 }
 
-#colorList {
+#List {
     font-size: 25px;
     margin: 30px 10px;
 }
@@ -159,6 +195,47 @@ div.buttonThing {
     margin-left: 15%;
     padding: 25px;
     background-color: #b2b2b2;
+}
+
+#contactNameId {
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+#contactPhotoId {
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+#contactEmail {
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+#contactPhoneNumber {
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+#contactAddress {
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+#contactRelationship {
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+#contactNotes {
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+#contactButton {
+    border-radius: 10px;
+    margin: -120px 35%;
+    width: 30%;
 }
 
 #image1
