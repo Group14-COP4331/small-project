@@ -1,0 +1,56 @@
+<html>
+<head>
+	<title>ADD CONTACT PAGE</title>
+	<script type="text/javascript" src="js/md5.js"></script>
+	<script type="text/javascript" src="js/code.js"></script>
+    <link href="css/styles.css" rel="stylesheet">	
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>p5 background</title>
+	<script type="text/javascript" src="js/p5.js"></script>
+	<script type="text/javascript" src="js/sketch.js"></script>
+
+	<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function() 
+		{
+			readCookie();
+		}, false);
+	</script>
+</head>
+<body>
+
+    <h1 id="createTitle">- + ADD CONTACT + -<br /><br /></h1>
+	<br />
+	<input type="name" id="contactNameId" placeholder="NAME" />
+	<br /><br />
+	<input type="photoid" id="contactPhotoId" placeholder="CONTACT PHOTO" />
+	<br /><br />
+	<input type="text" id="contactEmail" placeholder="EMAIL" />
+	<br /><br />
+	<input type="text" id="contactPhoneNumber" placeholder="PHONE NUMBER"/>
+	<br /><br />
+    <input type="text" id="contactAddress" placeholder="ADDRESS"/>
+	<br/><br />
+	<input type="text" id="contactRelationship" placeholder="RELATIONSHIP"/>
+	<br/><br />
+	<input type="text" id="contactNotes" placeholder="NOTES"/>
+	<br/><br />
+	
+	<button type="button" id="contactButton" class="buttons3" onclick="addFriend();" >ADD</button>
+
+	<script>
+		let input = document.getElementById("contactNotes");
+		input.addEventListener("keyup", function(ev) {
+			if(ev.keyCode === 13) {
+				ev.preventDefault();
+				document.getElementById("contactButton").click();
+			}
+		})
+	</script>
+
+	<span id="result"></span>
+</body>
+</html>

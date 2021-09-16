@@ -5,6 +5,7 @@ var userId = 0;
 var Name = "";
 var Photo = "";
 var b = "";
+var tmp_id = -100;
 
 function doLogin()
 {
@@ -47,7 +48,7 @@ function doLogin()
 
 				saveCookie();
 	
-				window.location.href = "color.html";
+				window.location.href = "home.html";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -57,6 +58,23 @@ function doLogin()
 		document.getElementById("result").innerHTML = err.message;
 	}
 
+}
+
+function goToSearch() {
+    window.location.href = "search.html";
+}
+
+function goToFriend() {
+    window.location.href = "friend.html";
+}
+
+function goToAccount() {
+    window.location.href = "account.html";
+}
+
+function goToHomePage()
+{
+	window.location.href = "home.html";
 }
 
 function createAccount()
@@ -214,28 +232,100 @@ function goToSignUpPage()
 	window.location.href = "create.html";
 }
 
+function confirmEdit() {
+	
+
+}
+
 function hidesearchbar()
 {
 	document.getElementById('hider').style.display='none';
 }
+function editContact ()
+{
+	document.getElementById('edit_button_state').style.display='none';
+	document.getElementById('edit_button_state2').style.display='block';
 
+	var tmp = {ID:tmp_id};
+	var jsonPayload = JSON.stringify( tmp );
+
+	var url = urlBase + '/ContactInfo.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				var json = JSON.parse( xhr.responseText );
+
+				document.getElementById("photo").innerHTML = "<input type='edit_text' value='" + json.photo +"'>";
+				document.getElementById("email").innerHTML = "<input type='edit_text' value='" + json.email +"'>";
+				document.getElementById("number").innerHTML = "<input type='edit_text' value='" + json.number +"'>";
+				document.getElementById("address").innerHTML = "<input type='edit_text' value='" + json.address +"'>";
+				document.getElementById("relationship").innerHTML = "<input type='edit_text' value='" + json.relationship +"'>";
+				document.getElementById("note").innerHTML = "<input type='edit_text' value='" + json.note +"'>";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{}	
+}
+
+function addFriend() 
+{
+    var friendName = document.getElementById("contactNameId").value;
+    var friendPhoto = document.getElementById("contactPhotoId").value;
+    var friendEmail = document.getElementById("contactEmail").value;
+    var friendPhoneNumber = document.getElementById("contactPhoneNumber").value;
+    var friendAddress = document.getElementById("contactAddress").value;
+    var friendRelationship = document.getElementById("contactRelationship").value;
+    var friendNotes = document.getElementById("contactNotes").value;
+	document.getElementById("result").innerHTML = "";
+
+    if (friendName != "" && friendPhoto != "" && friendEmail != "" && friendPhoneNumber != "" && friendPhoneNumber != "" && friendAddress != "" && friendRelationship != "" && friendNotes != "") 
+	{ 
+		//document.getElementById("result").innerHTML = "oof";
+		var temp = {Name:friendName, ContactPhoto:friendPhoto, UserID:userId, Email:friendEmail, PhoneNumber:friendPhoneNumber, Address:friendAddress, Relationship:friendRelationship, Notes:friendNotes};
+
+        var jsonPayload = JSON.stringify(temp);
+        var theUrl = urlBase + '/RegContact.' + extension;
+
+		
+        var xml = new XMLHttpRequest();
+        xml.open("POST", theUrl, true);
+        xml.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		
+		try
+		{
+			xml.onreadystatechange = function() 
+			{
+				if (this.readyState == 4 && this.status == 200) 
+				{
+					window.location.href = "home.html";
+				}
+			};
+			xml.send(jsonPayload);
+		}
+		catch(err)
+		{}
+
+    }else
+	{
+		document.getElementById("result").innerHTML = "All fields required.";
+	}
+}
 
 function contactInfo (i)
 {
-	var splits = i.split(",");
+	var ID = i;
+	tmp_id = ID;
 
-	var contactname = splits[0];
-	var contactphoto = splits[1];
-	var ID = splits[2];
-
-	document.getElementById('hider').style.display='none';
-	document.getElementById('hiderOpo').style.display='block';
-	document.getElementById('searchText').style.display='none';
-	document.getElementById("grabInfo").innerHTML = "<img id='pfp3' src = '" + contactphoto + "'/>" + " <p id='txtsearchformat2'>" + contactname + "</p>\r\n";
-	document.getElementById("grabInfo2").innerHTML = "<p id='txtsearchformat5'>" + contactname + "</p>\r\n";
-	document.getElementById('pfp3').style.display='block';
-
-	var tmp = {ID:ID};
+	var tmp = {ID:tmp_id};
 	var jsonPayload = JSON.stringify( tmp );
 
 	var url = urlBase + '/ContactInfo.' + extension;
@@ -257,18 +347,31 @@ function contactInfo (i)
 				document.getElementById("address").innerHTML = json.address;
 				document.getElementById("relationship").innerHTML = json.relationship;
 				document.getElementById("note").innerHTML = json.note;
-				
+
+				var contactname = json.Name;
+				var contactphoto = json.photo;
+
+				document.getElementById("grabInfo").innerHTML = "<img id='pfp3' src = '" + contactphoto + "'/>" + " <p id='txtsearchformat2'>" + contactname + "</p>\r\n";
+				document.getElementById("grabInfo2").innerHTML = "<p id='txtsearchformat5'>" + contactname + "</p>\r\n";
+				document.getElementById('pfp3').style.display='block';
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{}
+
+	document.getElementById('hider').style.display='none';
+	document.getElementById('hiderOpo').style.display='block';
+	document.getElementById('searchText').style.display='none';
+
 	
 }
 
 function backToSearch()
 {
+	document.getElementById('edit_button_state').style.display='block';
+	document.getElementById('edit_button_state2').style.display='none';
 	document.getElementById('hiderOpo').scrollTop = 0;
 	document.getElementById('hider').style.display='block';
 	document.getElementById('hiderOpo').style.display='none';
@@ -333,7 +436,7 @@ function search()
 
 				for(var i = 0; i < json.results.length || i > 10; i++)
 				{
-					list += "<div onclick='contactInfo(\"" + json.results[i].Name  + "," + json.results[i].ContactPhoto + "," + json.results[i].ID  + "\");' class='buttonThing'><img id='pfp2' src = '" + 
+					list += "<div onclick='contactInfo(\"" + json.results[i].ID  + "\");' class='buttonThing'><img id='pfp2' src = '" + 
 					json.results[i].ContactPhoto + "'/>" + " <p id='txtsearchformat'>" + json.results[i].Name  + "</p></div>\r\n";
 				}
 

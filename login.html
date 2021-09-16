@@ -22,6 +22,17 @@
 	<input type="password" id="loginPassword" placeholder="PASSWORD"/><br />
 	<br/>
 	<button type="button" id="loginButton" class="buttons4" onclick="doLogin();">LOG ON</button>
+
+	<script>
+		let input = document.getElementById("loginPassword");
+		input.addEventListener("keyup", function(ev) {
+			if(ev.keyCode === 13) {
+				ev.preventDefault();
+				document.getElementById("loginButton").click();
+			}
+		})
+	</script>
+
 	<span id="result"></span>
 </body>
 </html>
