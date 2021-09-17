@@ -251,17 +251,9 @@ function confirmEdit()
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	
 	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				var json = JSON.parse( xhr.responseText );
-			}
-		};
-		xhr.send(jsonPayload);
-	}
+	{ xhr.send(jsonPayload); }
 	catch(err)
 	{}
 
@@ -297,7 +289,30 @@ function deletePopup() {
 }
 
 function deleteContact() {
-	// delete contact here
+	
+	var tmp = {ID:tmp_id};
+
+	var jsonPayload = JSON.stringify( tmp );
+
+	var url = urlBase + '/DeleteContact.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	
+	try{ xhr.send(jsonPayload); }
+	catch(err)
+	{}
+
+	document.getElementById('divPopUp').style.display='none';
+	document.getElementById('hiderOpo').style.display='block';
+
+	backToSearch();
+
+	
+	document.getElementById("searchText").value = "";	
+	document.getElementById('hider').style.display='none';
+	document.getElementById("List").innerHTML = "";
 }
 
 function hidesearchbar()
