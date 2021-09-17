@@ -70,12 +70,7 @@ function goToFriend() {
 
 function goToAccount() {
 
-	//document.getElementById("user_photo").innerHTML = Photo;
-	//document.getElementById("user_name").innerHTML = Name;
-	
-	//document.getElementById("pfp5").src = Photo;
-
-    window.location.href = "account.html";
+	window.location.href = "account.html";
 }
 
 function goToHomePage()
@@ -205,6 +200,7 @@ function readCookie()
 	{
 		document.getElementById("Name").innerHTML = Name;
 		document.getElementById("pfp").src = Photo;
+		document.getElementById("pfp5").src = Photo;
 	}
 }
 
@@ -269,9 +265,39 @@ function confirmEdit()
 	catch(err)
 	{}
 
-	contactInfo(tmp_id);
+	document.getElementById("photo").innerHTML = friendPhoto;
+	document.getElementById("email").innerHTML = friendEmail;
+	document.getElementById("number").innerHTML = friendPhoneNumber;
+	document.getElementById("address").innerHTML = friendAddress;
+	document.getElementById("relationship").innerHTML = friendRelationship;
+	document.getElementById("note").innerHTML = friendNotes;
+	document.getElementById("grabInfo").innerHTML = "<img id='pfp3' src = '" + friendPhoto + "'/>" + " <p id='txtsearchformat2'>" + friendName + "</p>\r\n";
+	document.getElementById("grabInfo2").innerHTML = "<p id='txtsearchformat5' id='name'>" + friendName + "</p>\r\n";
+
+	document.getElementById('pfp3').style.display='block';
 	document.getElementById('edit_button_state').style.display='block';
+	document.getElementById('edit_button_state3').style.display='block';
 	document.getElementById('edit_button_state2').style.display='none';	
+
+	document.getElementById('hider').style.display='none';
+	document.getElementById('hiderOpo').style.display='block';
+	document.getElementById('searchText').style.display='none';
+	document.getElementById('backbutton').style.display='block';
+}
+
+function backToResult() {
+	document.getElementById('divPopUp').style.display='none';
+	document.getElementById('hiderOpo').style.display='block';
+}
+
+function deletePopup() {
+	//divPopUp
+	document.getElementById('divPopUp').style.display='block';
+	document.getElementById('hiderOpo').style.display='none';
+}
+
+function deleteContact() {
+	// delete contact here
 }
 
 function hidesearchbar()
@@ -281,7 +307,9 @@ function hidesearchbar()
 function editContact ()
 {
 	document.getElementById('edit_button_state').style.display='none';
+	document.getElementById('edit_button_state3').style.display='none';
 	document.getElementById('edit_button_state2').style.display='block';
+	document.getElementById('backbutton').style.display='none';
 
 	var tmp = {ID:tmp_id};
 	var jsonPayload = JSON.stringify( tmp );
@@ -305,7 +333,7 @@ function editContact ()
 				document.getElementById("address").innerHTML = "<input id='address_edit' type='edit_text' value='" + json.address +"'>";
 				document.getElementById("relationship").innerHTML = "<input id='relationship_edit' type='edit_text' value='" + json.relationship +"'>";
 				document.getElementById("note").innerHTML = "<input id='note_edit' type='edit_text' value='" + json.note +"'>";
-				document.getElementById("grabInfo2").innerHTML = "<input id='info_edit' type='edit_text' value='" + json.Name + "'>";
+				document.getElementById("grabInfo2").innerHTML = "<input id='info_edit' type='edit_text2' value='" + json.Name + "'>";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -407,11 +435,16 @@ function contactInfo (i)
 
 function backToSearch()
 {
+
+	//document.getElementById('hider').style.display='block';
+
 	document.getElementById('edit_button_state').style.display='block';
+	document.getElementById('edit_button_state3').style.display='block';
 	document.getElementById('edit_button_state2').style.display='none';
 	document.getElementById('hiderOpo').scrollTop = 0;
 	document.getElementById('hider').style.display='block';
 	document.getElementById('hiderOpo').style.display='none';
+	
 	document.getElementById('searchText').style.display='block';
 	document.getElementById('pfp3').style.display='none';
 }
@@ -451,6 +484,12 @@ function addColor()
 
 function search()
 {
+	if(document.getElementById("searchText").value == '')
+	{
+		document.getElementById("List").innerHTML = "";
+		document.getElementById('hider').style.display='none';
+	}
+
 	var srch = document.getElementById("searchText").value;
 	var list = "";
 
@@ -471,14 +510,22 @@ function search()
 				var json = JSON.parse( xhr.responseText );
 				
 
-				for(var i = 0; i < json.results.length || i > 10; i++)
+				if(json.id != 0)
 				{
-					list += "<div onclick='contactInfo(\"" + json.results[i].ID  + "\");' class='buttonThing'><img id='pfp2' src = '" + 
-					json.results[i].ContactPhoto + "'/>" + " <p id='txtsearchformat'>" + json.results[i].Name  + "</p></div>\r\n";
-				}
+					for(var i = 0; i < json.results.length || i > 10; i++)
+					{
+						list += "<div onclick='contactInfo(\"" + json.results[i].ID  + "\");' class='buttonThing'><img id='pfp2' src = '" + 
+						json.results[i].ContactPhoto + "'/>" + " <p id='txtsearchformat'>" + json.results[i].Name  + "</p></div>\r\n";
+					}
 
-				document.getElementById('hider').style.display='block';
-				document.getElementById("List").innerHTML = list;
+					document.getElementById('hider').style.display='block';
+					document.getElementById("List").innerHTML = list;
+				}
+				else
+				{
+					document.getElementById('hider').style.display='none';
+					document.getElementById("List").innerHTML = "";
+				}
 				
 			}
 		};

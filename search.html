@@ -28,13 +28,14 @@
 
 	<span id="userName"></span><br />
 	<button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
-
-	<input type="text" id="searchText" placeholder="Search Friend" oninput="search();" />
+	<input type="text" id="searchText" placeholder="Search Friend"  oninput="search();" />
 	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-	
+	<button class="buttons11" onclick="goToHomePage();">🏠</button>
 	<div class="scroll" id="hider"><p id="List"></p></div>
 
 	<div class="profileInfo" id="hiderOpo">
+		
+		<button class="buttons5" id="backbutton" onclick="backToSearch();"> < </button>
 
 		<br /><br />
 		<b><h1 id="txtsearchformat3"></h1>
@@ -74,11 +75,16 @@
 
 		<button class="buttons9" onclick="editContact();" id = "edit_button_state">EDIT</button>
 		<button class="buttons9" onclick="confirmEdit();" id = "edit_button_state2">CONFIRM EDIT</button>
-		<button class="buttons5" onclick="backToSearch();"> < BACK</button>
+		<button class="buttons15" onclick="deletePopup();" id = "edit_button_state3">DELETE</button>
+
 	
 	</div>
-
 	<p id="grabInfo"></p>
+	<div id="divPopUp">
+			<h1 id="txtsearchformat3">Are you sure you want to delete?</h1>
+			<button class="buttons9" onclick="deleteContact();">DELETE</button>
+			<button class="buttons15" onclick="backToResult();">CANCEL</button>
+			</div>
 
 
 	<!--button type="button" id="searchColorButton" class="buttons" onclick="searchColor();" >SEARCH</button><br />
@@ -91,4 +97,5 @@
 	<span id="colorAddResult"></span-->
 
 </body>
+
 </html>
