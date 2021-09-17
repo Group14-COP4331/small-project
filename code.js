@@ -69,6 +69,12 @@ function goToFriend() {
 }
 
 function goToAccount() {
+
+	//document.getElementById("user_photo").innerHTML = Photo;
+	//document.getElementById("user_name").innerHTML = Name;
+	
+	//document.getElementById("pfp5").src = Photo;
+
     window.location.href = "account.html";
 }
 
@@ -211,9 +217,6 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
-
-/* ADDED FUNCTION */
-
 function goToLoginPage()
 {
 	userId = 0;
@@ -232,9 +235,43 @@ function goToSignUpPage()
 	window.location.href = "create.html";
 }
 
-function confirmEdit() {
-	
+function confirmEdit()
+{
+	var friendName = document.getElementById("info_edit").value;
+    var friendPhoto = document.getElementById("photo_edit").value;
+    var friendEmail = document.getElementById("email_edit").value;
+    var friendPhoneNumber = document.getElementById("number_edit").value;
+    var friendAddress = document.getElementById("address_edit").value;
+    var friendRelationship = document.getElementById("relationship_edit").value;
+    var friendNotes = document.getElementById("note_edit").value;
+	//document.getElementById("result").innerHTML = "";
 
+	var tmp = {ID:tmp_id, UserID: userId, Name:friendName, PhoneNumber:friendPhoneNumber, Email:friendEmail, Address:friendAddress, Relationship:friendRelationship, Notes:friendNotes, ContactPhoto:friendPhoto};
+
+	var jsonPayload = JSON.stringify( tmp );
+
+	var url = urlBase + '/EditContact.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				var json = JSON.parse( xhr.responseText );
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{}
+
+	contactInfo(tmp_id);
+	document.getElementById('edit_button_state').style.display='block';
+	document.getElementById('edit_button_state2').style.display='none';	
 }
 
 function hidesearchbar()
@@ -262,12 +299,13 @@ function editContact ()
 			{
 				var json = JSON.parse( xhr.responseText );
 
-				document.getElementById("photo").innerHTML = "<input type='edit_text' value='" + json.photo +"'>";
-				document.getElementById("email").innerHTML = "<input type='edit_text' value='" + json.email +"'>";
-				document.getElementById("number").innerHTML = "<input type='edit_text' value='" + json.number +"'>";
-				document.getElementById("address").innerHTML = "<input type='edit_text' value='" + json.address +"'>";
-				document.getElementById("relationship").innerHTML = "<input type='edit_text' value='" + json.relationship +"'>";
-				document.getElementById("note").innerHTML = "<input type='edit_text' value='" + json.note +"'>";
+				document.getElementById("photo").innerHTML = "<input id='photo_edit' type='edit_text' value='" + json.photo +"'>";
+				document.getElementById("email").innerHTML = "<input id='email_edit' type='edit_text' value='" + json.email +"'>";
+				document.getElementById("number").innerHTML = "<input id='number_edit' type='edit_text' value='" + json.number +"'>";
+				document.getElementById("address").innerHTML = "<input id='address_edit' type='edit_text' value='" + json.address +"'>";
+				document.getElementById("relationship").innerHTML = "<input id='relationship_edit' type='edit_text' value='" + json.relationship +"'>";
+				document.getElementById("note").innerHTML = "<input id='note_edit' type='edit_text' value='" + json.note +"'>";
+				document.getElementById("grabInfo2").innerHTML = "<input id='info_edit' type='edit_text' value='" + json.Name + "'>";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -289,7 +327,6 @@ function addFriend()
 
     if (friendName != "" && friendPhoto != "" && friendEmail != "" && friendPhoneNumber != "" && friendPhoneNumber != "" && friendAddress != "" && friendRelationship != "" && friendNotes != "") 
 	{ 
-		//document.getElementById("result").innerHTML = "oof";
 		var temp = {Name:friendName, ContactPhoto:friendPhoto, UserID:userId, Email:friendEmail, PhoneNumber:friendPhoneNumber, Address:friendAddress, Relationship:friendRelationship, Notes:friendNotes};
 
         var jsonPayload = JSON.stringify(temp);
@@ -352,7 +389,7 @@ function contactInfo (i)
 				var contactphoto = json.photo;
 
 				document.getElementById("grabInfo").innerHTML = "<img id='pfp3' src = '" + contactphoto + "'/>" + " <p id='txtsearchformat2'>" + contactname + "</p>\r\n";
-				document.getElementById("grabInfo2").innerHTML = "<p id='txtsearchformat5'>" + contactname + "</p>\r\n";
+				document.getElementById("grabInfo2").innerHTML = "<p id='txtsearchformat5' id='name'>" + contactname + "</p>\r\n";
 				document.getElementById('pfp3').style.display='block';
 			}
 		};
