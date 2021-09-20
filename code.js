@@ -499,12 +499,6 @@ function addColor()
 
 function search()
 {
-	if(document.getElementById("searchText").value == '')
-	{
-		document.getElementById("List").innerHTML = "";
-		document.getElementById('hider').style.display='none';
-	}
-
 	var srch = document.getElementById("searchText").value;
 	var list = "";
 
@@ -525,7 +519,7 @@ function search()
 				var json = JSON.parse( xhr.responseText );
 				
 
-				if(json.id != 0)
+				if(json.id != 0 && document.getElementById("searchText").value != "")
 				{
 					for(var i = 0; i < json.results.length || i > 10; i++)
 					{
@@ -540,46 +534,11 @@ function search()
 				{
 					document.getElementById('hider').style.display='none';
 					document.getElementById("List").innerHTML = "";
-				}
-				
+				}				
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{}
-	
-	/*var json = [
-		{"Name": "Kanye West", "contactphoto": "https://thumbor.forbes.com/thumbor/fit-in/416x416/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5ed00f17d4a99d0006d2e738%2F0x0.jpg%3Fbackground%3D000000%26cropX1%3D154%26cropX2%3D4820%26cropY1%3D651%26cropY2%3D5314"},
-		{"Name": "Kanye Zest", "contactphoto": "https://i0.wp.com/thisbugslife.com/wp-content/uploads/2021/03/depositphotos_19638723-stock-photo-fresh-orange-fruit-with-leaf.jpg?ssl=1"},
-		{"Name": "Kanye Rest", "contactphoto": "https://static.independent.co.uk/s3fs-public/thumbnails/image/2016/11/22/08/kanye.jpg?width=982&height=726&auto=webp&quality=75"},
-		{"Name": "Kanye Best", "contactphoto": "https://storage.googleapis.com/afs-prod/media/746904c6b2d84f798dfe797eef55f0ac/400.jpeg"},
-		{"Name": "Donda West", "contactphoto": "https://th.bing.com/th/id/OIP.ZRIwZX8FnKm5llDAOsXs9gAAAA?w=177&h=180&c=7&r=0&o=5&pid=1.7"},
-		{"Name": "Kim West", "contactphoto": "https://onobello.com/wp-content/uploads/2020/01/Kim-Kardashian-KKW-Beauty-2020-Camapign-OnoBello-5.jpg"},
-		{"Name": "Super Man", "contactphoto": "https://th.bing.com/th/id/OIP.hJer70S1WigQvWoooTmTDQHaEK?w=258&h=182&c=7&r=0&o=5&pid=1.7"},
-		{"Name": "Bat Man", "contactphoto": "https://th.bing.com/th/id/OIP.cWQUPZFYSb7_-G8x-79qowHaHa?w=183&h=184&c=7&r=0&o=5&pid=1.7"},
-		{"Name": "KanyeLoves Kanye", "contactphoto": "https://th.bing.com/th/id/OIP.XAsMofaeyNsT1tkUxARb0QHaHa?w=177&h=180&c=7&r=0&o=5&pid=1.7"}
-	
-	];*/
-
-	/*var list = "";
-
-	for(var i = 0; i < json.length; i++)
-	{
-		list += "<div onclick='contactInfo(\"" + json[i].Name  + "," + json[i].contactphoto + "\");' class='buttonThing'><img id='pfp2' src = '" + 
-		json[i].contactphoto + "'/>" + " <p id='txtsearchformat'>" + json[i].Name  + "</p></div>\r\n";
-	}*/
-
-	/*
-iteration 1
-<div onclick='contactInfo("Kanye,West,ImageLink");' class='buttonThing'>
-<img id='pfp2' src = 'image1'/> <p id='txtsearchformat'> Kanye West </p>
-</div>
-
-iteration 2
-<div onclick='contactInfo("Kanye,Zest,ImageLink2");' class='buttonThing'>
-<img id='pfp2' src = 'image2'/> <p id='txtsearchformat'> Kanye Zest </p>
-</div>
-	*/
-	//document.getElementById("List").innerHTML = "asdffffffffffffffffffffffffffffffffffffffffffffffff";
 }
