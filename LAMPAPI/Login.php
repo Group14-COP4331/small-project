@@ -1,11 +1,16 @@
-
 <?php
+    header('Access-Control-Allow-Origin: http://connectere.online/'); 
+    header("Access-Control-Allow-Credentials: true");
+    header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
+    header('Access-Control-Max-Age: 1000');
+    header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Authorization');
 
 $inData = getRequestInfo();
 
 $id = 0;
 $name = "";
 $photo = "";
+$login = "";
 
 $conn = new mysqli("localhost", "TheBeast", "UCFGROUP14ROCKS", "FINAL"); 	
 if( $conn->connect_error )
@@ -14,14 +19,14 @@ if( $conn->connect_error )
 }
 else
 {
-    $stmt = $conn->prepare("SELECT ID,Name, ContactPhoto FROM Users WHERE Login=? AND Password =?");
+    $stmt = $conn->prepare("SELECT ID,Name, ContactPhoto, Login FROM Users WHERE Login=? AND Password =?");
     $stmt->bind_param("ss", $inData["Login"], $inData["Password"]);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if( $row = $result->fetch_assoc()  )
     {
-        returnWithInfo( $row['Name'], $row['ID'], $row['ContactPhoto']);
+        returnWithInfo( $row['Name'], $row['ID'], $row['ContactPhoto'], $row['Login']);
     }
     else
     {
@@ -49,9 +54,9 @@ function returnWithError( $err )
     sendResultInfoAsJson( $retValue );
 }
 
-function returnWithInfo( $name, $id, $photo)
+function returnWithInfo( $name, $id, $photo, $login)
 {
-    $retValue = '{"id":' . $id . ',"Name":"' . $name . '", "photo":"' . $photo . '","error":""}';
+    $retValue = '{"id":' . $id . ',"Name":"' . $name . '", "photo":"' . $photo . '", "login":"' . $login . '","error":""}';
     sendResultInfoAsJson( $retValue );
 }
 

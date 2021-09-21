@@ -1,4 +1,11 @@
 <?php
+
+	header('Access-Control-Allow-Origin: http://connectere.online/'); 
+	header("Access-Control-Allow-Credentials: true");
+	header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
+	header('Access-Control-Max-Age: 1000');
+	header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Authorization');
+
 	$inData = getRequestInfo();
 
 	$conn = new mysqli("localhost", "TheBeast", "UCFGROUP14ROCKS", "FINAL");
@@ -8,8 +15,8 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("DELETE FROM Contacts WHERE Name=?  AND UserID=?");
-		$stmt->bind_param("si", $inData["Name"], $inData["UserID"]);
+		$stmt = $conn->prepare("DELETE FROM Contacts WHERE ID=?");
+		$stmt->bind_param("i", $inData["ID"]);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
