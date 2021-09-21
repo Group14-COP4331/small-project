@@ -1,4 +1,11 @@
 <?php
+
+    header('Access-Control-Allow-Origin: http://connectere.online/'); 
+        header("Access-Control-Allow-Credentials: true");
+        header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
+        header('Access-Control-Max-Age: 1000');
+        header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Authorization');
+
 	$inData = getRequestInfo();
 	$userID = $inData["UserID"];
 	$name = $inData["Name"];
