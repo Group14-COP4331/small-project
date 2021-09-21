@@ -17,7 +17,7 @@
 	else
 	{
 		$stmt = $conn->prepare("UPDATE Users SET Password = ? WHERE ID = ?");
-		$stmt->bind_param("si", md5($password), $userID);
+		$stmt->bind_param("si", $password, $userID);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
