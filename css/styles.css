@@ -9,8 +9,8 @@ html * {
 {
     font-size: 70px;
     color:rgba(238, 84, 87);
-    margin: 0px 200px;
-    width: 500px;
+    margin: 0px 140px;
+    width: 800px;
 }
 
 #nameFormat 
@@ -22,7 +22,8 @@ html * {
 }
 
 div.profileInfo {
-    background-color: rgba(238, 84, 87);;
+    background-color: rgba(238, 84, 87);
+    border-radius: 10px;
 }
 
 div.scroll {
@@ -115,6 +116,160 @@ div.buttonThing {
     color: #ffffff;
 }
 
+
+#contactsTitle {
+    font-size: 90px;
+    color:rgba(238, 84, 87);
+    text-align: center;
+    margin-top: -110px;
+}
+
+.buttons6 {
+    border-radius: 15px;
+    font-size: 23px;
+    width: 22%;
+    height: 28%;
+    margin-left: 17%;
+    margin-top: -2000px;
+    border: 0;
+    padding: 0;
+    transition: 0.3s;
+    display: inline-block;
+    background-color: rgba(238, 84, 87);
+    transform: translateY(1800px);
+
+    color: #ffe2bd;
+}
+
+#currentPassword {
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+#pfp5 {
+    transform: translateX(-75px);
+    margin-left: 50%;
+    margin-top: 50px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid rgba(238, 84, 87);
+}
+
+#txtsearchformat7 {
+    font-size: 35px;
+    margin: 50px 0px;
+    color: rgb(255, 255, 255);;
+    text-align: center;
+}
+
+#txtsearchformat6 {
+    font-size: 20px;
+    margin: 50px 0px;
+    transform: translateY(-40px);
+    color: rgb(255, 255, 255);;
+    text-align: center;
+}
+
+#user_photo {
+    font-size: 25px;
+    margin: 50px 0px;
+    transform: translateY(-40px);
+    color: rgb(255, 255, 255);;
+    text-align: center;
+}
+
+#user_login {
+    font-size: 25px;
+    margin: 50px 0px;
+    transform: translateY(-40px);
+    color: rgb(255, 255, 255);;
+    text-align: center;
+}
+
+#user_name {
+    font-size: 25px;
+    margin: 50px 0px;
+    transform: translateY(-40px);
+    color: rgb(255, 255, 255);;
+    text-align: center;
+}
+
+
+
+
+div.profile {
+    margin-left: 35%;
+    width: 30%;
+    background-color: rgba(238, 84, 87);
+    overflow-y: hidden;
+    overflow-x: hidden;
+    border-radius: 15px;
+    transform: translateY(-60px);
+}
+
+.buttons6:hover{
+    background-color: rgba(124, 87, 247);
+    color: #ffffff;
+}
+
+.buttons7 {
+    border-radius: 15px;
+    font-size: 23px;
+    width: 22%;
+    height: 28%;
+    margin-left: 63%;
+    margin-top: -2000px;
+    border: 0;
+    padding: 0;
+    transition: 0.3s;
+    transform: translateY(1800px);
+
+    background-color: rgba(238, 84, 87);
+
+    color: #ffe2bd;
+}
+
+.buttons7:hover{
+    background-color: rgba(124, 87, 247);
+    color: #ffffff;
+}
+
+.buttons8 {
+    border-radius: 15px;
+    font-size: 23px;
+    width: 22%;
+    height: 28%;
+    margin-left: 40%;
+    margin-top: -2000px;
+    transform: translateY(1800px);
+    
+    border: 0;
+    padding: 0;
+    transition: 0.3s;
+
+    background-color: rgba(238, 84, 87);
+
+    color: #ffe2bd;
+}
+
+.buttons8:hover{
+    background-color: rgba(124, 87, 247);
+    color: #ffffff;
+}
+
+#edit_button_state {
+    display: block;
+}
+
+#edit_button_state3 {
+    display: block;
+}
+
+#edit_button_state2 {
+    display: none;
+}
+
 #relationship {
     font-size: 20px;
     text-align: center;
@@ -128,7 +283,6 @@ div.buttonThing {
     margin: -100px 0px;
     color: #ffffff;
 }
-
 
 #txtsearchformat5 {
     font-size: 60px;
@@ -195,6 +349,47 @@ div.buttonThing {
     margin-left: 15%;
     padding: 25px;
     background-color: #b2b2b2;
+}
+
+#contactNameId {
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+#contactPhotoId {
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+#contactEmail {
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+#contactPhoneNumber {
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+#contactAddress {
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+#contactRelationship {
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+#contactNotes {
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+#contactButton {
+    border-radius: 10px;
+    margin: -120px 35%;
+    width: 30%;
 }
 
 #image1
@@ -301,6 +496,26 @@ input[type="photoid"],input[type="name"],input[type="text"],input[type="password
     color: #f36666;
 }
 
+input[type="edit_text"]{
+
+    background-color: #fff2e2;
+    color:rgba(238, 84, 87);
+    width: 50%;
+    margin-left: 0%;
+    font-size: 25px;
+    border: none;
+}
+
+input[type="edit_text2"]{
+
+    background-color: #fff2e2;
+    color:rgba(238, 84, 87);
+    width: 50%;
+    margin-left: 25%;
+    font-size: 25px;
+    border: none;
+}
+
 #inner-title{
     display: inline-block;
     font-size: 0.8em;
@@ -401,6 +616,21 @@ select{
     border-radius: 10px;
     margin: -120px 35%;
     width: 30%;
+    display: block;
+}
+
+#createButton2 {
+    border-radius: 10px;
+    margin: 60px 35%;
+    width: 30%;
+    display: block;
+}
+
+#edit_button_state10 {
+    border-radius: 10px;
+    margin: -120px 35%;
+    width: 30%;
+    display: none;
 }
 
 .buttons3
@@ -453,7 +683,7 @@ select{
     color: #ffffff;
 }
 
-.buttons5
+.buttons9
 {
     border-radius: 0px;
     font-size: 23px;
@@ -466,7 +696,55 @@ select{
     margin-left: 0px;
     transition: 0.3s;
     
-    background-color: rgb(241, 110, 112);
+    background-color: rgb(246, 110, 112);
+    
+
+    color: #ffe2bd;
+    
+}
+
+.buttons9:hover{
+    background-color: rgba(124, 87, 247);
+    color: #ffffff;
+}
+
+.buttons15
+{
+    border-radius: 0px;
+    font-size: 23px;
+    width: 100%;
+    height: 50px;
+    border: 0;
+    padding: 0;
+
+    margin-left: 0px;
+    transition: 0.3s;
+    
+    background-color: rgb(246, 110, 112);
+
+    color: #ffe2bd;
+    
+}
+
+.buttons15:hover{
+    background-color: rgba(124, 87, 247);
+    color: #ffffff;
+}
+
+.buttons5
+{
+    border-radius: 0px;
+    font-size: 23px;
+    width: 70px;
+    height: 50px;
+    border: 0;
+    padding: 0;
+
+    margin-top: 0px;
+    margin-left: 0px;
+    transition: 0.3s;
+    
+    background-color: rgb(246, 110, 112);
 
     color: #ffe2bd;
     
@@ -477,5 +755,113 @@ select{
     color: #ffffff;
 }
 
+.buttons11
+{
+
+    border-radius: 10px;
+    font-size: 40px;
+    width: 100px;
+    height: 100px;
+    border: 0;
+    padding: 0;
+    margin-top: -620px;
+    margin-left: 90%;
+    transition: 0.3s;
+    
+    background-color: rgb(241, 110, 112);
+
+    color: #ffe2bd;
+    
+}
+
+.buttons11:hover{
+    background-color: rgba(124, 87, 247);
+    color: #ffffff;
+}
+
+.buttons20
+{
+
+    border-radius: 10px;
+    font-size: 40px;
+    width: 100px;
+    height: 100px;
+    border: 0;
+    padding: 0;
+    margin-top: -620px;
+    margin-left: 90%;
+    transition: 0.3s;
+    transform: translateY(-75px);
+    background-color: rgb(241, 110, 112);
+
+    color: #ffe2bd;
+    
+}
+
+.buttons20:hover{
+    background-color: rgba(124, 87, 247);
+    color: #ffffff;
+}
+
+.buttons12
+{
+
+    border-radius: 10px;
+    font-size: 40px;
+    width: 100px;
+    height: 100px;
+    border: 0;
+    padding: 0;
+    margin-top: -990px;
+    margin-left: 90%;
+    transition: 0.3s;
+    
+    background-color: rgb(241, 110, 112);
+
+    color: #ffe2bd;
+    
+}
+
+.buttons12:hover{
+    background-color: rgba(124, 87, 247);
+    color: #ffffff;
+}
 
 
+.buttons13
+{
+
+    border-radius: 10px;
+    font-size: 40px;
+    width: 100px;
+    height: 100px;
+    border: 0;
+    padding: 0;
+    margin-top: -950px;
+    margin-left: 90%;
+    transition: 0.3s;
+    
+    background-color: rgb(241, 110, 112);
+
+    color: #ffe2bd;
+    
+}
+
+.buttons13:hover{
+    background-color: rgba(124, 87, 247);
+    color: #ffffff;
+}
+
+
+#divPopUp {
+    font-size: 50px;
+    background-color: rgba(238, 84, 87);
+    border-radius: 10px;
+    display: none;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    margin: 766px 25%;
+
+    width: 50%;
+    height: 540px;
+}
