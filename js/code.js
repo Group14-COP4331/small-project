@@ -5,6 +5,7 @@ var userId = 0;
 var Name = "";
 var Photo = "";
 var b = "";
+var tmp_id = -100;
 
 function doLogin()
 {
@@ -47,7 +48,7 @@ function doLogin()
 
 				saveCookie();
 	
-				window.location.href = "color.html";
+				window.location.href = "home.html";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -57,6 +58,24 @@ function doLogin()
 		document.getElementById("result").innerHTML = err.message;
 	}
 
+}
+
+function goToSearch() {
+    window.location.href = "search.html";
+}
+
+function goToFriend() {
+    window.location.href = "friend.html";
+}
+
+function goToAccount() {
+
+	window.location.href = "account.html";
+}
+
+function goToHomePage()
+{
+	window.location.href = "home.html";
 }
 
 function createAccount()
@@ -181,6 +200,7 @@ function readCookie()
 	{
 		document.getElementById("Name").innerHTML = Name;
 		document.getElementById("pfp").src = Photo;
+		document.getElementById("pfp5").src = Photo;
 	}
 }
 
@@ -192,9 +212,6 @@ function doLogout()
 	document.cookie = "Name= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
 	window.location.href = "index.html";
 }
-
-
-/* ADDED FUNCTION */
 
 function goToLoginPage()
 {
@@ -214,28 +231,181 @@ function goToSignUpPage()
 	window.location.href = "create.html";
 }
 
-function hidesearchbar()
+function confirmEdit()
 {
-	document.getElementById('hider').style.display='none';
-}
+	var friendName = document.getElementById("info_edit").value;
+    var friendPhoto = document.getElementById("photo_edit").value;
+    var friendEmail = document.getElementById("email_edit").value;
+    var friendPhoneNumber = document.getElementById("number_edit").value;
+    var friendAddress = document.getElementById("address_edit").value;
+    var friendRelationship = document.getElementById("relationship_edit").value;
+    var friendNotes = document.getElementById("note_edit").value;
+	//document.getElementById("result").innerHTML = "";
 
+	var tmp = {ID:tmp_id, UserID: userId, Name:friendName, PhoneNumber:friendPhoneNumber, Email:friendEmail, Address:friendAddress, Relationship:friendRelationship, Notes:friendNotes, ContactPhoto:friendPhoto};
 
-function contactInfo (i)
-{
-	var splits = i.split(",");
+	var jsonPayload = JSON.stringify( tmp );
 
-	var contactname = splits[0];
-	var contactphoto = splits[1];
-	var ID = splits[2];
+	var url = urlBase + '/EditContact.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	
+	try
+	{ xhr.send(jsonPayload); }
+	catch(err)
+	{}
+
+	document.getElementById("photo").innerHTML = friendPhoto;
+	document.getElementById("email").innerHTML = friendEmail;
+	document.getElementById("number").innerHTML = friendPhoneNumber;
+	document.getElementById("address").innerHTML = friendAddress;
+	document.getElementById("relationship").innerHTML = friendRelationship;
+	document.getElementById("note").innerHTML = friendNotes;
+	document.getElementById("grabInfo").innerHTML = "<img id='pfp3' src = '" + friendPhoto + "'/>" + " <p id='txtsearchformat2'>" + friendName + "</p>\r\n";
+	document.getElementById("grabInfo2").innerHTML = "<p id='txtsearchformat5' id='name'>" + friendName + "</p>\r\n";
+
+	document.getElementById('pfp3').style.display='block';
+	document.getElementById('edit_button_state').style.display='block';
+	document.getElementById('edit_button_state3').style.display='block';
+	document.getElementById('edit_button_state2').style.display='none';	
 
 	document.getElementById('hider').style.display='none';
 	document.getElementById('hiderOpo').style.display='block';
 	document.getElementById('searchText').style.display='none';
-	document.getElementById("grabInfo").innerHTML = "<img id='pfp3' src = '" + contactphoto + "'/>" + " <p id='txtsearchformat2'>" + contactname + "</p>\r\n";
-	document.getElementById("grabInfo2").innerHTML = "<p id='txtsearchformat5'>" + contactname + "</p>\r\n";
-	document.getElementById('pfp3').style.display='block';
+	document.getElementById('backbutton').style.display='block';
+}
 
-	var tmp = {ID:ID};
+function backToResult() {
+	document.getElementById('divPopUp').style.display='none';
+	document.getElementById('hiderOpo').style.display='block';
+}
+
+function deletePopup() {
+	//divPopUp
+	document.getElementById('divPopUp').style.display='block';
+	document.getElementById('hiderOpo').style.display='none';
+}
+
+function deleteContact() {
+	
+	var tmp = {ID:tmp_id};
+
+	var jsonPayload = JSON.stringify( tmp );
+
+	var url = urlBase + '/DeleteContact.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	
+	try{ xhr.send(jsonPayload); }
+	catch(err)
+	{}
+
+	document.getElementById('divPopUp').style.display='none';
+	document.getElementById('hiderOpo').style.display='block';
+
+	backToSearch();
+
+	
+	document.getElementById("searchText").value = "";	
+	document.getElementById('hider').style.display='none';
+	document.getElementById("List").innerHTML = "";
+}
+
+function hidesearchbar()
+{
+	document.getElementById('hider').style.display='none';
+}
+function editContact ()
+{
+	document.getElementById('edit_button_state').style.display='none';
+	document.getElementById('edit_button_state3').style.display='none';
+	document.getElementById('edit_button_state2').style.display='block';
+	document.getElementById('backbutton').style.display='none';
+
+	var tmp = {ID:tmp_id};
+	var jsonPayload = JSON.stringify( tmp );
+
+	var url = urlBase + '/ContactInfo.' + extension;
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				var json = JSON.parse( xhr.responseText );
+
+				document.getElementById("photo").innerHTML = "<input id='photo_edit' type='edit_text' value='" + json.photo +"'>";
+				document.getElementById("email").innerHTML = "<input id='email_edit' type='edit_text' value='" + json.email +"'>";
+				document.getElementById("number").innerHTML = "<input id='number_edit' type='edit_text' value='" + json.number +"'>";
+				document.getElementById("address").innerHTML = "<input id='address_edit' type='edit_text' value='" + json.address +"'>";
+				document.getElementById("relationship").innerHTML = "<input id='relationship_edit' type='edit_text' value='" + json.relationship +"'>";
+				document.getElementById("note").innerHTML = "<input id='note_edit' type='edit_text' value='" + json.note +"'>";
+				document.getElementById("grabInfo2").innerHTML = "<input id='info_edit' type='edit_text2' value='" + json.Name + "'>";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{}	
+}
+
+function addFriend() 
+{
+    var friendName = document.getElementById("contactNameId").value;
+    var friendPhoto = document.getElementById("contactPhotoId").value;
+    var friendEmail = document.getElementById("contactEmail").value;
+    var friendPhoneNumber = document.getElementById("contactPhoneNumber").value;
+    var friendAddress = document.getElementById("contactAddress").value;
+    var friendRelationship = document.getElementById("contactRelationship").value;
+    var friendNotes = document.getElementById("contactNotes").value;
+	document.getElementById("result").innerHTML = "";
+
+    if (friendName != "" && friendPhoto != "" && friendEmail != "" && friendPhoneNumber != "" && friendPhoneNumber != "" && friendAddress != "" && friendRelationship != "" && friendNotes != "") 
+	{ 
+		var temp = {Name:friendName, ContactPhoto:friendPhoto, UserID:userId, Email:friendEmail, PhoneNumber:friendPhoneNumber, Address:friendAddress, Relationship:friendRelationship, Notes:friendNotes};
+
+        var jsonPayload = JSON.stringify(temp);
+        var theUrl = urlBase + '/RegContact.' + extension;
+
+		
+        var xml = new XMLHttpRequest();
+        xml.open("POST", theUrl, true);
+        xml.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		
+		try
+		{
+			xml.onreadystatechange = function() 
+			{
+				if (this.readyState == 4 && this.status == 200) 
+				{
+					window.location.href = "home.html";
+				}
+			};
+			xml.send(jsonPayload);
+		}
+		catch(err)
+		{}
+
+    }else
+	{
+		document.getElementById("result").innerHTML = "All fields required.";
+	}
+}
+
+function contactInfo (i)
+{
+	var ID = i;
+	tmp_id = ID;
+
+	var tmp = {ID:tmp_id};
 	var jsonPayload = JSON.stringify( tmp );
 
 	var url = urlBase + '/ContactInfo.' + extension;
@@ -257,21 +427,39 @@ function contactInfo (i)
 				document.getElementById("address").innerHTML = json.address;
 				document.getElementById("relationship").innerHTML = json.relationship;
 				document.getElementById("note").innerHTML = json.note;
-				
+
+				var contactname = json.Name;
+				var contactphoto = json.photo;
+
+				document.getElementById("grabInfo").innerHTML = "<img id='pfp3' src = '" + contactphoto + "'/>" + " <p id='txtsearchformat2'>" + contactname + "</p>\r\n";
+				document.getElementById("grabInfo2").innerHTML = "<p id='txtsearchformat5' id='name'>" + contactname + "</p>\r\n";
+				document.getElementById('pfp3').style.display='block';
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{}
+
+	document.getElementById('hider').style.display='none';
+	document.getElementById('hiderOpo').style.display='block';
+	document.getElementById('searchText').style.display='none';
+
 	
 }
 
 function backToSearch()
 {
+
+	//document.getElementById('hider').style.display='block';
+
+	document.getElementById('edit_button_state').style.display='block';
+	document.getElementById('edit_button_state3').style.display='block';
+	document.getElementById('edit_button_state2').style.display='none';
 	document.getElementById('hiderOpo').scrollTop = 0;
 	document.getElementById('hider').style.display='block';
 	document.getElementById('hiderOpo').style.display='none';
+	
 	document.getElementById('searchText').style.display='block';
 	document.getElementById('pfp3').style.display='none';
 }
@@ -331,53 +519,26 @@ function search()
 				var json = JSON.parse( xhr.responseText );
 				
 
-				for(var i = 0; i < json.results.length || i > 10; i++)
+				if(json.id != 0 && document.getElementById("searchText").value != "")
 				{
-					list += "<div onclick='contactInfo(\"" + json.results[i].Name  + "," + json.results[i].ContactPhoto + "," + json.results[i].ID  + "\");' class='buttonThing'><img id='pfp2' src = '" + 
-					json.results[i].ContactPhoto + "'/>" + " <p id='txtsearchformat'>" + json.results[i].Name  + "</p></div>\r\n";
-				}
+					for(var i = 0; i < json.results.length || i > 10; i++)
+					{
+						list += "<div onclick='contactInfo(\"" + json.results[i].ID  + "\");' class='buttonThing'><img id='pfp2' src = '" + 
+						json.results[i].ContactPhoto + "'/>" + " <p id='txtsearchformat'>" + json.results[i].Name  + "</p></div>\r\n";
+					}
 
-				document.getElementById('hider').style.display='block';
-				document.getElementById("List").innerHTML = list;
-				
+					document.getElementById('hider').style.display='block';
+					document.getElementById("List").innerHTML = list;
+				}
+				else
+				{
+					document.getElementById('hider').style.display='none';
+					document.getElementById("List").innerHTML = "";
+				}				
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{}
-	
-	/*var json = [
-		{"Name": "Kanye West", "contactphoto": "https://thumbor.forbes.com/thumbor/fit-in/416x416/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5ed00f17d4a99d0006d2e738%2F0x0.jpg%3Fbackground%3D000000%26cropX1%3D154%26cropX2%3D4820%26cropY1%3D651%26cropY2%3D5314"},
-		{"Name": "Kanye Zest", "contactphoto": "https://i0.wp.com/thisbugslife.com/wp-content/uploads/2021/03/depositphotos_19638723-stock-photo-fresh-orange-fruit-with-leaf.jpg?ssl=1"},
-		{"Name": "Kanye Rest", "contactphoto": "https://static.independent.co.uk/s3fs-public/thumbnails/image/2016/11/22/08/kanye.jpg?width=982&height=726&auto=webp&quality=75"},
-		{"Name": "Kanye Best", "contactphoto": "https://storage.googleapis.com/afs-prod/media/746904c6b2d84f798dfe797eef55f0ac/400.jpeg"},
-		{"Name": "Donda West", "contactphoto": "https://th.bing.com/th/id/OIP.ZRIwZX8FnKm5llDAOsXs9gAAAA?w=177&h=180&c=7&r=0&o=5&pid=1.7"},
-		{"Name": "Kim West", "contactphoto": "https://onobello.com/wp-content/uploads/2020/01/Kim-Kardashian-KKW-Beauty-2020-Camapign-OnoBello-5.jpg"},
-		{"Name": "Super Man", "contactphoto": "https://th.bing.com/th/id/OIP.hJer70S1WigQvWoooTmTDQHaEK?w=258&h=182&c=7&r=0&o=5&pid=1.7"},
-		{"Name": "Bat Man", "contactphoto": "https://th.bing.com/th/id/OIP.cWQUPZFYSb7_-G8x-79qowHaHa?w=183&h=184&c=7&r=0&o=5&pid=1.7"},
-		{"Name": "KanyeLoves Kanye", "contactphoto": "https://th.bing.com/th/id/OIP.XAsMofaeyNsT1tkUxARb0QHaHa?w=177&h=180&c=7&r=0&o=5&pid=1.7"}
-	
-	];*/
-
-	/*var list = "";
-
-	for(var i = 0; i < json.length; i++)
-	{
-		list += "<div onclick='contactInfo(\"" + json[i].Name  + "," + json[i].contactphoto + "\");' class='buttonThing'><img id='pfp2' src = '" + 
-		json[i].contactphoto + "'/>" + " <p id='txtsearchformat'>" + json[i].Name  + "</p></div>\r\n";
-	}*/
-
-	/*
-iteration 1
-<div onclick='contactInfo("Kanye,West,ImageLink");' class='buttonThing'>
-<img id='pfp2' src = 'image1'/> <p id='txtsearchformat'> Kanye West </p>
-</div>
-
-iteration 2
-<div onclick='contactInfo("Kanye,Zest,ImageLink2");' class='buttonThing'>
-<img id='pfp2' src = 'image2'/> <p id='txtsearchformat'> Kanye Zest </p>
-</div>
-	*/
-	//document.getElementById("List").innerHTML = "asdffffffffffffffffffffffffffffffffffffffffffffffff";
 }
